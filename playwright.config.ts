@@ -1,13 +1,11 @@
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './tests/e2e',
-  timeout: 30_000,
-  retries: process.env.CI ? 2 : 0,
-  reporter: process.env.CI ? 'github' : 'list',
   webServer: {
     command: 'npm run dev',
     port: 5173,
     reuseExistingServer: !process.env.CI,
+    timeout: 60 * 1000, // 60 seconds
   },
+  testDir: 'tests/e2e',
 });
