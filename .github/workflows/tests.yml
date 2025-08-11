@@ -1,0 +1,27 @@
+name: Run Vitest & Playwright E2E
+
+on: [push, pull_request]
+
+jobs:
+  vitest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - name: Run Unit & Integration Tests
+        run: npm run test
+
+  playwright:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npx playwright install --with-deps
+      - name: Run E2E Tests
+        run: npx playwright test
